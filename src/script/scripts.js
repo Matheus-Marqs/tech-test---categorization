@@ -1,12 +1,14 @@
-import fs from "fs/promises";
+import { promises as fs } from "fs";
 
 import { JsonReader } from "../classes/JsonReader.js";
 import { ProductCategorizer } from "../classes/ProductCategorizer.js";
 
 class RunScripts {
   constructor() {
-    this.filePath = "C:\\Automacoes\\challenge - categorizacao\\json\\data01.json";
-    this.outputFilePath = "C:\\Automacoes\\challenge - categorizacao\\json\\output.json";
+    this.filePath =
+      "C:\\Automacoes\\challenge - categorizacao\\json\\data01.json";
+    this.outputFilePath =
+      "C:\\Automacoes\\challenge - categorizacao\\json\\output.json";
   }
 
   async clearOutputFile() {
@@ -14,13 +16,11 @@ class RunScripts {
       await fs.access(this.outputFilePath);
       await fs.unlink(this.outputFilePath);
 
-      while (true){
-        await fs.access(this.outputFilePath);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     } catch (error) {
-        if(error.code !== "ENOENT") {
-            console.error('Erro ao tentar remover outout.js');
-        }
+      if (error.code !== "ENOENT") {
+        console.error("Erro ao tentar remover output.js:", error);
+      }
     }
   }
 

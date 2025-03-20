@@ -1,15 +1,12 @@
-import { promises as fs } from "fs";
+import fs from 'fs/promises';
 
 import { JsonReader } from "../classes/JsonReader.js";
 import { ProductCategorizer } from "../classes/ProductCategorizer.js";
 
 class RunScripts {
   constructor() {
-    this.filePath =
-      "C:\\Automacoes\\challenge - categorizacao\\json\\data01.json";
-    this.outputFilePath =
-      "C:\\Automacoes\\challenge - categorizacao\\json\\output.json";
-  }
+    this.filePath = ".\\json\\data01.json";
+    this.outputFilePath = ".\\json\\output.json";}
 
   async clearOutputFile() {
     try {
@@ -40,10 +37,7 @@ class RunScripts {
     const dataJson = await this.readJson();
 
     const dataCategorizer = await this.categorizeProducts(dataJson);
-    await fs.writeFile(
-      this.outputFilePath,
-      JSON.stringify(dataCategorizer, null, 2)
-    );
+    await fs.writeFile(this.outputFilePath, JSON.stringify(dataCategorizer, null, 2));
   }
 }
 

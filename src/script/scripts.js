@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from "fs/promises";
 
 import { JsonReader } from "../classes/JsonReader.js";
 import { ProductCategorizer } from "../classes/ProductCategorizer.js";
@@ -6,6 +6,18 @@ import { ProductCategorizer } from "../classes/ProductCategorizer.js";
 class RunScripts {
   constructor() {
     this.filePath = "C:\\Automacoes\\challenge - categorizacao\\json\\data01.json";
+    this.outputFilePath = "C:\\Automacoes\\challenge - categorizacao\\json\\output.json";
+  }
+
+  async clearOutputFile() {
+    try {
+      await fs.access(this.outputFilePath);
+      await fs.unlink(this.outputFilePath);
+    } catch (error) {
+        if(error.code !== "ENOENT") {
+            console.error('Erro ao tentar remover outout.js');
+        }
+    }
   }
 
   async readJson() {
@@ -19,11 +31,15 @@ class RunScripts {
   }
 
   async runScripts() {
+    await this.clearOutputFile();
+
     const dataJson = await this.readJson();
-    console.log(dataJson);
 
     const dataCategorizer = await this.categorizeProducts(dataJson);
-    await fs.writeFile('.\\json\\output.json', JSON.stringify(dataCategorizer, null, 2));
+    await fs.writeFile(
+      this.outputFilePath,
+      JSON.stringify(dataCategorizer, null, 2)
+    );
   }
 }
 

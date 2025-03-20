@@ -1,7 +1,6 @@
 import { ProductNormalizer } from "./ProductNormalizer.js";
 
 export class ProductCategorizer {
-
   async categorize(products) {
     const categories = new Map();
 
@@ -16,20 +15,13 @@ export class ProductCategorizer {
         });
       }
 
-    //   categories.get(normalizeTitle).count += 1;
-    //   categories.get(normalizeTitle).products.push({
-    //     title: product.title,
-    //     supermarket: product.supermarket,
-    //     price: product.price
-    //   });
-
-    const category = categories.get(normalizeTitle);
-    category.count += 1;
-    category.products.push({
-      title: product.title,
-          supermarket: product.supermarket,
-          price: product.price
-    });
+      const category = categories.get(normalizeTitle);
+      category.count += 1;
+      category.products.push({
+        title: product.title,
+        supermarket: product.supermarket,
+        price: product.price,
+      });
     });
 
     return Array.from(categories.values());

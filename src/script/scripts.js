@@ -1,3 +1,5 @@
+import fs from 'fs/promises';
+
 import { JsonReader } from "../classes/JsonReader.js";
 import { ProductCategorizer } from "../classes/ProductCategorizer.js";
 
@@ -21,7 +23,7 @@ class RunScripts {
     console.log(dataJson);
 
     const dataCategorizer = await this.categorizeProducts(dataJson);
-    console.log(JSON.stringify(dataCategorizer, null, 2))
+    await fs.writeFile('.\\json\\output.json', JSON.stringify(dataCategorizer, null, 2));
   }
 }
 

@@ -5,22 +5,22 @@ export class ProductCategorizer {
     const categories = new Map();
 
     products.forEach((product) => {
-      const normalizeTitle = ProductNormalizer.normalizeTitle(product.title);
+      const normalizedTitle = ProductNormalizer.normalizeTitle(product.title);
 
-      if (!categories.has(normalizeTitle)) {
-        categories.set(normalizeTitle, {
+      if (!categories.has(normalizedTitle)) {
+        categories.set(normalizedTitle, {
           category: product.title,
           count: 0,
           products: [],
         });
       }
 
-      const category = categories.get(normalizeTitle);
+      const category = categories.get(normalizedTitle);
       category.count += 1;
       category.products.push({
         title: product.title,
         supermarket: product.supermarket,
-        price: product.price,
+        price: product.price
       });
     });
 

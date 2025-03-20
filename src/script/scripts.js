@@ -13,6 +13,10 @@ class RunScripts {
     try {
       await fs.access(this.outputFilePath);
       await fs.unlink(this.outputFilePath);
+
+      while (true){
+        await fs.access(this.outputFilePath);
+      }
     } catch (error) {
         if(error.code !== "ENOENT") {
             console.error('Erro ao tentar remover outout.js');
